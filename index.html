@@ -81,6 +81,7 @@ li{margin:4px 0}
   <button data-v="tone" onclick="go('tone')">🎵 Thanh điệu</button>
 </nav>
 <main id="main"></main>
+<p class="small muted" style="text-align:center;padding:0 18px 24px">Ảnh minh họa: Wikimedia Commons, lấy từ các bài viết tương ứng trên Wikipedia.</p>
 <div id="toast" class="toast"></div>
 
 <script>
@@ -289,7 +290,7 @@ function vUnit(m){
 function mkQ(w){
   const t = ['mean','hanzi','listen'][rnd(3)];
   const dis = shuffle(ALL.filter(x => x.zh!==w.zh && x.vi!==w.vi && x.py!==w.py)).slice(0,3);
-  return {w, t, opts: shuffle([{zh:w[0], py:w[1], vi:w[2]}, ...dis])};
+  return {w, t, opts: shuffle([{zh:w.zh, py:w.py, vi:w.vi}, ...dis])};
 }
 function startQuiz(id){
   const u = UNITS.find(x => x.id===id);
@@ -648,7 +649,8 @@ function wrDone(){ addActivity(5, 0); toast('Tốt! Đã ghi nhận lượt vi�
 
 /* ---------- HÌNH MINH HỌA (biểu tượng) ---------- */
 const EMO = {你好:'👋', 再见:'👋', 谢谢:'🙏', 老师:'👩‍🏫', 学生:'🧑‍🎓', 朋友:'👫', 男:'👦', 女:'👧', 我:'🙋', 名字:'🪪', 叫:'📣', 中国人:'🇨🇳', 越南人:'🇻🇳', 家:'🏠', 爸爸:'👨', 妈妈:'👩', 哥哥:'🧑', 姐姐:'👧', 一:'1️⃣', 二:'2️⃣', 三:'3️⃣', 四:'4️⃣', 五:'5️⃣', 十:'🔟', 吃:'🍽️', 喝:'🥤', 水:'💧', 米饭:'🍚', 好吃:'😋', 买:'🛒', 贵:'💎', 便宜:'🏷️', 今天:'📅', 明天:'⏭️', 昨天:'⏮️', 去:'🚶', 来:'🏃', 学习:'📖', 工作:'💼', 喜欢:'❤️', 生日:'🎂', 星期:'📆', 天气:'🌤️', 下雨:'🌧️', 银行:'🏦', 饭店:'🍜', 高兴:'😄', 漂亮:'🌸', 看:'👀', 听:'👂', 说:'🗣️', 写:'✍️', 上午:'🌅', 下午:'🌇'};
-function em(zh){ return EMO[zh] ? `<span style='font-size:28px'>${EMO[zh]}</span>` : ''; }
+const IMG = {'米饥':'https://upload.wikimedia.org/wikipedia/commons/d/d6/Meshi_001.jpg', '生日':'https://upload.wikimedia.org/wikipedia/commons/0/06/Delicious_Birthday_Cake_%2814346969741%29.jpg', '下雨':'https://upload.wikimedia.org/wikipedia/commons/6/65/Hard_rain_on_a_roof.jpg', '银行':'https://upload.wikimedia.org/wikipedia/commons/a/a8/London.bankofengland.arp.jpg', '饭店':'https://upload.wikimedia.org/wikipedia/commons/6/62/Barbieri_-_ViaSophia25668.jpg', '家':'https://upload.wikimedia.org/wikipedia/commons/1/1b/Katsura_Imperial_Villa_in_Spring.jpg', '水':'https://upload.wikimedia.org/wikipedia/commons/a/ad/Clean_water_for_a_village_in_West_Lombok_%2810686572086%29.jpg'};
+function em(zh){ if (IMG[zh]) return `<img src='${IMG[zh]}' alt='' loading='lazy' style='width:56px;height:56px;object-fit:cover;border-radius:10px;flex-shrink:0'>`; return EMO[zh] ? `<span style='font-size:28px'>${EMO[zh]}</span>` : ''; }
 
 /* ---------- MINH HỌA BỔ SUNG ---------- */
 const UNIT_ICON = {u1:'👋', u2:'🙋', u3:'🏠', u4:'🍜', u5:'📅', u6:'💬', u7:'👫', u8:'🌤️'};
